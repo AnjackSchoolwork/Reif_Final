@@ -1,0 +1,11 @@
+/*
+/*/
+
+# Meta Data
+!.gitignore
+!.gitattributes
+!README.md
+
+# Project Data
+!/Assets/
+!/ProjectSettings/

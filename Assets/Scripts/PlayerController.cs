@@ -31,10 +31,11 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
         RaycastHit hit_info = new RaycastHit();
+        Ray ground_check_ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
 
-        gameObject.GetComponent<Collider>().Raycast(new Ray(transform.position, transform.TransformDirection(Vector3.down)), out hit_info, 10.0f);
+        gameObject.GetComponent<Collider>().Raycast(ground_check_ray, out hit_info, 10.0f);
 
-        Debug.Log(hit_info.distance);
+        Debug.DrawRay(transform.position, new Vector3(0, -1, 0) * 100, Color.green, 5.0f, false);
 
         // Set camera rotation based upon mouse look (but only when right mouse button is held down)
         if (Input.GetMouseButton(1))
@@ -47,23 +48,27 @@ public class PlayerController : MonoBehaviour {
 
         }
 
-        // Set character speed and move them
+        // If we need to alter the speed for any reason (environment, buffs/debuffs, etc) we shouldn't change the default value
         float adjusted_speed = speed;
 
+        // Get movement input
         float delta_right = Input.GetAxis("Horizontal");
         float delta_forward = Input.GetAxis("Vertical");
-
+        
+        // Get new position
+        // TODO: Check if new spot collides with anything before moving there
         Vector3 new_move = new Vector3(delta_right, 0, delta_forward) * adjusted_speed * Time.deltaTime;
-
-        // To prevent "skiing"
-
+        
+        // This is how fast we appear to be going in real time
         float observed_speed = new_move.magnitude / Time.deltaTime;
 
-        Debug.Log(observed_speed);
+        // To prevent "skiing"
+        // Need to clamp speed
 
         // Move us to the new position (need collision check)
         transform.Translate(new_move);
 
+        // Let the animation controller know how fast we appear to be going
         body_animator.SetFloat("Speed", observed_speed);
 	}
 

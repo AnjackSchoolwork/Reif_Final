@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
     private float pitch;
 
     private Vector3 move_range;
+    private bool is_aiming;
 
     Animator body_animator;
     Rigidbody rb;
@@ -24,11 +25,20 @@ public class PlayerController : MonoBehaviour {
 
         body_animator = body.GetComponent<Animator>();
 
+        is_aiming = body_animator.GetBool("Aiming");
+
         rb = gameObject.GetComponent<Rigidbody>();
 	}
+
+    void setAimMode(bool should_be_aiming)
+    {
+        is_aiming = should_be_aiming;
+        body_animator.SetBool("Aiming", is_aiming);
+    }
 	
 	// Update is called once per frame
 	void Update () {
+
 
         RaycastHit hit_info = new RaycastHit();
         Ray ground_check_ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
@@ -38,15 +48,37 @@ public class PlayerController : MonoBehaviour {
         Debug.DrawRay(transform.position, new Vector3(0, -1, 0) * 100, Color.green, 5.0f, false);
 
         // Set camera rotation based upon mouse look (but only when right mouse button is held down)
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1) && !is_aiming)
         {
-            yaw += Input.GetAxis("Mouse X") * rotation_speed * Time.deltaTime;
-            pitch += Input.GetAxis("Mouse Y") * rotation_speed * Time.deltaTime;
-
-            transform.eulerAngles = new Vector3(transform.rotation.x, transform.rotation.y + yaw, 0.0f);
-            player_cam.transform.eulerAngles = new Vector3(player_cam.transform.rotation.x - pitch, player_cam.transform.rotation.y + yaw, 0.0f);
-
+            setAimMode(true);
         }
+        else if(Input.GetMouseButtonUp(1) && is_aiming)
+        {
+            setAimMode(false);
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            setAimMode(true);
+            body_animator.SetTrigger("Attack");
+        }
+
+        if(Input.GetMouseButtonUp(0) && !Input.GetMouseButton(1))
+        {
+            setAimMode(false);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            body_animator.SetTrigger("Jump");
+        }
+
+        yaw += Input.GetAxis("Mouse X") * rotation_speed * Time.deltaTime;
+        pitch += Input.GetAxis("Mouse Y") * rotation_speed * Time.deltaTime;
+
+        transform.eulerAngles = new Vector3(transform.rotation.x, transform.rotation.y + yaw, 0.0f);
+        player_cam.transform.eulerAngles = new Vector3(player_cam.transform.rotation.x - pitch, player_cam.transform.rotation.y + yaw, 0.0f);
+            
 
         // If we need to alter the speed for any reason (environment, buffs/debuffs, etc) we shouldn't change the default value
         float adjusted_speed = speed;

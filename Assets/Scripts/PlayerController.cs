@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject body;
 
     public Camera player_cam;
+    public GameObject camera_pivot;
 
     private float yaw;
     private float pitch;
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviour {
         pitch += Input.GetAxis("Mouse Y") * rotation_speed * Time.deltaTime;
 
         transform.eulerAngles = new Vector3(transform.rotation.x, transform.rotation.y + yaw, 0.0f);
-        player_cam.transform.eulerAngles = new Vector3(player_cam.transform.rotation.x - pitch, player_cam.transform.rotation.y + yaw, 0.0f);
+        camera_pivot.transform.eulerAngles = new Vector3(player_cam.transform.rotation.x - pitch, player_cam.transform.rotation.y + yaw, 0.0f);
             
 
         // If we need to alter the speed for any reason (environment, buffs/debuffs, etc) we shouldn't change the default value

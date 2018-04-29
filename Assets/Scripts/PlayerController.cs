@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour {
     public Camera player_cam;
     public GameObject camera_pivot;
 
+    public GameObject ammo_type;
+    public GameObject bullet_spawn;
+
     private float yaw;
     private float pitch;
 
@@ -35,6 +38,11 @@ public class PlayerController : MonoBehaviour {
     {
         is_aiming = should_be_aiming;
         body_animator.SetBool("Aiming", is_aiming);
+    }
+
+    public void firePrimary()
+    {
+        Instantiate(ammo_type, bullet_spawn.transform.position, bullet_spawn.transform.rotation);
     }
 	
 	// Update is called once per frame

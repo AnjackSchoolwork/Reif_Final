@@ -12,11 +12,11 @@ public class BulletController : MonoBehaviour {
 	void Start () {
         rb = GetComponent<Rigidbody>();
 
-        rb.AddForce(Vector3.forward * ballistic_force, ForceMode.Force);
+        rb.AddForce(transform.forward * ballistic_force, ForceMode.Force);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
+    }
 }

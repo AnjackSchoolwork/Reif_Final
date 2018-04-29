@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballistic_force: 500
+  damage_amount: 10
 --- !u!136 &136680865109278088
 CapsuleCollider:
   m_ObjectHideFlags: 1

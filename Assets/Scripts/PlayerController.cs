@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 
     public float speed;
     public float rotation_speed;
+    public float health;
 
     public GameObject body;
 
@@ -43,6 +44,33 @@ public class PlayerController : MonoBehaviour {
     public void firePrimary()
     {
         Instantiate(ammo_type, bullet_spawn.transform.position, bullet_spawn.transform.rotation);
+    }
+
+    // Handle death
+    void dieGracefully()
+    {
+        body_animator.SetTrigger("Death");
+    }
+
+    // Called by death animation
+    void onDeath()
+    {
+
+    }
+
+    // Called externally to handle damage
+    public void takeHit(int dmg_amt)
+    {
+        health -= dmg_amt;
+
+        if(health <= 0)
+        {
+            dieGracefully();
+        }
+        else
+        {
+            body_animator.SetTrigger("Damage");
+        }
     }
 	
 	// Update is called once per frame

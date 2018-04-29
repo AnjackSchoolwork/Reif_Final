@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 54489192837516966}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1282,7 +1282,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1102100017871110}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: -0, y: 0.090301424, z: -0, w: 0.9959145}
   m_LocalPosition: {x: 0, y: 0.05, z: -23.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1290,7 +1290,7 @@ Transform:
   - {fileID: 4784480863388298}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 10.362, z: 0}
 --- !u!4 &4654027085103798
 Transform:
   m_ObjectHideFlags: 1
@@ -1747,11 +1747,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   rotation_speed: 150
+  health: 100
   body: {fileID: 1328555373731974}
   player_cam: {fileID: 20330773524210722}
   camera_pivot: {fileID: 1468537076025848}
-  ammo_type: {fileID: 0}
-  bullet_spawn: {fileID: 0}
+  ammo_type: {fileID: 1352289563164762, guid: 7fd1d36d48aaaff4d8406fb35b83901b, type: 2}
+  bullet_spawn: {fileID: 1282784994627530}
 --- !u!114 &114972007078582364
 MonoBehaviour:
   m_ObjectHideFlags: 1

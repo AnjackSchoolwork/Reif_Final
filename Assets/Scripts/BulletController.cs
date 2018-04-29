@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletController : MonoBehaviour {
 
     public float ballistic_force;
+    public int damage_amount;
 
     private Rigidbody rb;
 
@@ -17,6 +18,18 @@ public class BulletController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
+        EnemyController ec_temp = collision.gameObject.GetComponent<EnemyController>();
+        PlayerController pc_temp = collision.gameObject.GetComponent<PlayerController>();
+        
+        if (ec_temp != null)
+        {
+            ec_temp.takeHit(damage_amount);
+        }
+        else if (pc_temp != null)
+        {
+            pc_temp.takeHit(damage_amount);
+        }
+
         Destroy(gameObject);
     }
 }

@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour {
     protected ScoreKeeper score_keeper;
 
     protected bool engaging_target = false;
+    protected bool dead = false;
 
     NavMeshAgent nav_agent;
     Animator my_animator;
@@ -53,7 +54,7 @@ public class EnemyController : MonoBehaviour {
     // Event called from death animation (for cleanup if necessary)
     public void onDeath()
     {
-
+        dead = true;
     }
 
     // Called externally to attempt to apply damage
@@ -75,7 +76,7 @@ public class EnemyController : MonoBehaviour {
     // TODO: Determine attack type based on circumstances
     void acquireTarget(GameObject target)
     {
-        transform.LookAt(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
+        transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y - 0.5f, player.transform.position.z));
         engaging_target = true;
         if(!my_animator.GetBool("Aiming"))
         {
@@ -98,34 +99,48 @@ public class EnemyController : MonoBehaviour {
     // TODO: Add scatter to reduce accuracy
     void fireWeapon()
     {
+        Debug.Log("FIRING!");
         Instantiate(ammo_type, bullet_spawn.transform.position, bullet_spawn.transform.rotation);
     }
 
     // Called from animation to change attack state
     public void attackEnd()
     {
+        Debug.Log("ATTACK END");
         if(engaging_target)
         {
+            my_animator.ResetTrigger("Attack");
             my_animator.SetTrigger("Attack");
+            //Invoke("fireWeapon", 0.02f);
         }
     }
 
     private void Update()
     {
-        my_animator.SetFloat("Speed", nav_agent.velocity.magnitude);
+        if (!dead)
+        {
+            my_animator.SetFloat("Speed", nav_agent.velocity.magnitude);
 
-        if(Vector3.Distance(transform.position, player.transform.position) <= perception_range)
-        {
-            if (!nav_agent.isStopped)
+            if (Vector3.Distance(transform.position, player.transform.position) <= perception_range)
             {
-                nav_agent.isStopped = true;
+                if (!nav_agent.isStopped)
+                {
+                    nav_agent.isStopped = true;
+                }
+                if (!engaging_target)
+                {
+                    acquireTarget(player);
+                    Invoke("attackEnd", 1.5f);
+                }
+                else
+                {
+                    acquireTarget(player);
+                }
             }
-            acquireTarget(player);
-            attackEnd();
-        }
-        else if (engaging_target)
-        {
-            loseTarget();
+            else if (engaging_target)
+            {
+                loseTarget();
+            }
         }
     }
 }

@@ -5,7 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class MenuUI : MonoBehaviour {
 
-	public void StartGame()
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+
+    }
+    public void StartGame()
     {
         SceneManager.LoadScene("LevelOne");
     }

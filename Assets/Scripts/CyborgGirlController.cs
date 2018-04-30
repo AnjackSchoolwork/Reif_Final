@@ -10,4 +10,9 @@ public class CyborgGirlController : MonoBehaviour {
     {
         parent_obj.BroadcastMessage("firePrimary");
     }
+
+    public void DeathEvent()
+    {
+        parent_obj.BroadcastMessage("onDeath");
+    }
 }

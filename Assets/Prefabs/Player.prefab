@@ -1753,6 +1753,7 @@ MonoBehaviour:
   camera_pivot: {fileID: 1468537076025848}
   ammo_type: {fileID: 1352289563164762, guid: 7fd1d36d48aaaff4d8406fb35b83901b, type: 2}
   bullet_spawn: {fileID: 1282784994627530}
+  UI: {fileID: 0}
 --- !u!114 &114972007078582364
 MonoBehaviour:
   m_ObjectHideFlags: 1

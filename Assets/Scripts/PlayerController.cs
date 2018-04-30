@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
     public float speed;
     public float rotation_speed;
-    public float health;
+    public int health;
 
     public GameObject body;
 
@@ -15,6 +16,10 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject ammo_type;
     public GameObject bullet_spawn;
+
+    public GameObject UI;
+
+    private ScoreKeeper score_keeper;
 
     private float yaw;
     private float pitch;
@@ -33,6 +38,8 @@ public class PlayerController : MonoBehaviour {
         is_aiming = body_animator.GetBool("Aiming");
 
         rb = gameObject.GetComponent<Rigidbody>();
+
+        score_keeper = UI.GetComponent<ScoreKeeper>();
 	}
 
     void setAimMode(bool should_be_aiming)
@@ -55,13 +62,14 @@ public class PlayerController : MonoBehaviour {
     // Called by death animation
     void onDeath()
     {
-
+        SceneManager.LoadScene("MainMenu");
     }
 
     // Called externally to handle damage
     public void takeHit(int dmg_amt)
     {
         health -= dmg_amt;
+        score_keeper.update_health(health);
 
         if(health <= 0)
         {

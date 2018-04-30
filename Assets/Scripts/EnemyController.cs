@@ -11,7 +11,13 @@ public class EnemyController : MonoBehaviour {
     public GameObject bullet_spawn;
     public GameObject patrol_dest;
 
-    bool engaging_target = false;
+    public int score_value;
+
+    public GameObject UI;
+
+    protected ScoreKeeper score_keeper;
+
+    protected bool engaging_target = false;
 
     NavMeshAgent nav_agent;
     Animator my_animator;
@@ -26,6 +32,8 @@ public class EnemyController : MonoBehaviour {
         nav_agent.destination = patrol_dest.transform.position;
 
         player = GameObject.FindGameObjectWithTag("player");
+
+        score_keeper = UI.GetComponent<ScoreKeeper>();
 	}
 
     // Called internally when character dies
@@ -37,6 +45,9 @@ public class EnemyController : MonoBehaviour {
         // Call death animation
         my_animator.SetTrigger("Death");
         GetComponent<CapsuleCollider>().enabled = false;
+
+        // Increment score
+        score_keeper.increment_score(score_value);
     }
 
     // Event called from death animation (for cleanup if necessary)

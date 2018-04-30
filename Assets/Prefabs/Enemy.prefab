@@ -1572,6 +1572,8 @@ MonoBehaviour:
   ammo_type: {fileID: 1352289563164762, guid: 7fd1d36d48aaaff4d8406fb35b83901b, type: 2}
   bullet_spawn: {fileID: 1815839052588404}
   patrol_dest: {fileID: 0}
+  score_value: 10
+  UI: {fileID: 0}
 --- !u!136 &136928581114321712
 CapsuleCollider:
   m_ObjectHideFlags: 1

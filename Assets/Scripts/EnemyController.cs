@@ -32,6 +32,8 @@ public class EnemyController : MonoBehaviour {
 
         nav_agent.destination = patrol_dest.transform.position;
 
+        nav_agent.stoppingDistance = 1;
+
         player = GameObject.FindGameObjectWithTag("player");
 
         score_keeper = UI.GetComponent<ScoreKeeper>();
@@ -49,12 +51,13 @@ public class EnemyController : MonoBehaviour {
 
         // Increment score
         score_keeper.increment_score(score_value);
+
+        dead = true;
     }
 
     // Event called from death animation (for cleanup if necessary)
     public void onDeath()
     {
-        dead = true;
     }
 
     // Called externally to attempt to apply damage
@@ -111,7 +114,6 @@ public class EnemyController : MonoBehaviour {
         {
             my_animator.ResetTrigger("Attack");
             my_animator.SetTrigger("Attack");
-            //Invoke("fireWeapon", 0.02f);
         }
     }
 
@@ -123,14 +125,14 @@ public class EnemyController : MonoBehaviour {
 
             if (Vector3.Distance(transform.position, player.transform.position) <= perception_range)
             {
-                if (!nav_agent.isStopped)
+                if (nav_agent.isActiveAndEnabled && !nav_agent.isStopped)
                 {
                     nav_agent.isStopped = true;
                 }
                 if (!engaging_target)
                 {
                     acquireTarget(player);
-                    Invoke("attackEnd", 1.5f);
+                    Invoke("attackEnd", 0.75f);
                 }
                 else
                 {

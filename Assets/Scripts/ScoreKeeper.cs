@@ -22,6 +22,7 @@ public class ScoreKeeper : MonoBehaviour {
 	public void increment_score(int increment_value)
     {
         score += increment_value;
+        
         score_text.text = score.ToString();
     }
 

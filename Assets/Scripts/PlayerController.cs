@@ -172,4 +172,18 @@ public class PlayerController : MonoBehaviour
             body_animator.SetFloat("Speed", observed_speed);
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Finish")
+        {
+            dead = true;
+            Invoke("LoadWinScene", 2);
+        }
+    }
+
+    private void LoadWinScene()
+    {
+        SceneManager.LoadScene("WinScreen");
+    }
 }

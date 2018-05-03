@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelOne.unity
     guid: d5ace16c20e4dd748b51b1196d0738e4
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: d93b3d30b0c9e534dba7b1931d4ea7a4

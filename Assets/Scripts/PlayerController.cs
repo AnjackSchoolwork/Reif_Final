@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bullet_spawn;
 
     public GameObject UI;
+    public GameObject death_panel;
 
     protected bool dead = false;
 
@@ -69,8 +70,10 @@ public class PlayerController : MonoBehaviour
     // Called by death animation
     void onDeath()
     {
+        Debug.Log("Dying!");
         rb.isKinematic = true;
         rb.detectCollisions = false;
+        death_panel.SetActive(true);
         Invoke("restartGame", 3.0f);
     }
 
@@ -175,7 +178,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Finish")
+        if(collision.gameObject.tag == "Exit_LvL_1")
         {
             dead = true;
             Invoke("LoadWinScene", 2);

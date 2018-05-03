@@ -102,14 +102,12 @@ public class EnemyController : MonoBehaviour {
     // TODO: Add scatter to reduce accuracy
     void fireWeapon()
     {
-        Debug.Log("FIRING!");
         Instantiate(ammo_type, bullet_spawn.transform.position, bullet_spawn.transform.rotation);
     }
 
     // Called from animation to change attack state
     public void attackEnd()
     {
-        Debug.Log("ATTACK END");
         if(engaging_target)
         {
             my_animator.ResetTrigger("Attack");

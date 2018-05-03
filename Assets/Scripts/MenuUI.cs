@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class MenuUI : MonoBehaviour {
 
     public Text score_text;
+    public GameObject main_panel;
+    public GameObject help_panel;
 
     private void Start()
     {
@@ -21,6 +23,20 @@ public class MenuUI : MonoBehaviour {
     public void StartGame()
     {
         SceneManager.LoadScene("LevelOne");
+    }
+
+    public void toggleHelp()
+    {
+        if(help_panel.activeInHierarchy)
+        {
+            help_panel.SetActive(false);
+            main_panel.SetActive(true);
+        }
+        else
+        {
+            main_panel.SetActive(false);
+            help_panel.SetActive(true);
+        }
     }
 
     public void ReturnToMenu()

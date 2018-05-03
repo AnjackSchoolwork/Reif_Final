@@ -149,7 +149,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.95583594
+      - time: 0.82785326
         functionName: DeathEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
